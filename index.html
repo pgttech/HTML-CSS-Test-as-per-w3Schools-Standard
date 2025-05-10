@@ -142,7 +142,7 @@ p {
     <div class="logo-left">
       <img src="your-logo.png" alt="Your Logo" />
     </div>
-    <div class="timer" id="timer">⏱ Time Left: 45:00</div>
+    <div class="timer" id="timer">⏱ Time Left: 30:00</div>
     <h1 style="color: green;">HTML/CSS Test as per w3Schools Standard</h1>
     <form id="testForm" method="POST">
       <label for="trainee_name"><strong>Trainee Name:</strong></label>
@@ -172,7 +172,7 @@ startForm.addEventListener('submit', function(event) {
     landingPage.style.display = 'none';
     testContent.style.display = 'block';
     document.getElementById("landing-marquee").style.display = "none"; // Hides the marquee
-    startTimer(45 * 60); // 45 minutes
+    startTimer(30 * 60); // 30 minutes
   }
 });
     // Timer logic
@@ -185,10 +185,10 @@ startForm.addEventListener('submit', function(event) {
         display.textContent = `⏱ Time Left: ${minutes}:${seconds}`;
 
         if (--timer < 0) {
-          clearInterval(countdown);
-          alert("⏰ Time is up! Submitting your test.");
-          document.getElementById("testForm").submit();
-        }
+  clearInterval(countdown);
+  alert("⏰ Time is up! Submitting your test.");
+  autoSubmitTest();
+}
       }, 1000);
     }
 
@@ -203,12 +203,7 @@ startForm.addEventListener('submit', function(event) {
       "Create a form with Name, Email input, and a Submit button.",
       "Create a nested list: Fruits &gt; Apple, Banana; Vegetables &gt; Carrot, Potato.",
       "Use &lt;em&gt; and &lt;strong&gt; to style: “This is very important!”",
-      "Create a &lt;div&gt; with id \"main-content\" and a paragraph inside.",
       "Write inline CSS to color &lt;h1&gt; blue.",
-      "Use internal CSS to set body background to lightgray and paragraph font size to 16px.",
-      "Create a .box class with 200x100px and green background.",
-      "Use Flexbox to center a &lt;div&gt; vertically and horizontally.",
-      "Write CSS to change link color to red on hover and remove underline."
     ];
 
     const editors = {};
@@ -248,7 +243,43 @@ startForm.addEventListener('submit', function(event) {
     };
 
     const testForm = document.getElementById("testForm");
-    testForm.addEventListener("submit", function(event) {
+    
+function autoSubmitTest() {
+  let allCode = '';
+  for (let i = 1; i <= questions.length; i++) {
+    const code = editors[i].getValue();
+    allCode += `
+      <div class="question">
+        <h2>Question ${i}</h2>
+        <pre>${code}</pre>
+      </div>
+    `;
+  }
+
+  const finalHtml = `
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>HTML/CSS Test Answers</title>
+    </head>
+    <body>
+      <h1>Test Answers for ${traineeNameInput.value}</h1>
+      ${allCode}
+    </body>
+    </html>
+  `;
+
+  const blob = new Blob([finalHtml], { type: 'text/html' });
+  const link = document.createElement('a');
+  link.href = URL.createObjectURL(blob);
+  link.download = `${traineeNameInput.value}_answers.html`;
+  link.click();
+}
+
+
+testForm.addEventListener("submit", function(event) {
       event.preventDefault();
       let allCode = '';
       for (let i = 1; i <= questions.length; i++) {
