@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>HTML/CSS Test as per w3schools</title>
   <style>
     body {
@@ -10,11 +11,13 @@
       margin: 0;
       background: #f0f2f5;
     }
-p {
+
+    p {
       text-align: left;
       font-weight: bold;
-     color: #0066FF;
-}
+      color: #0066FF;
+    }
+
     #landing-page {
       display: flex;
       justify-content: center;
@@ -27,7 +30,7 @@ p {
       background: #f9f9f9;
       padding: 40px;
       border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
       text-align: center;
       width: 90%;
       max-width: 500px;
@@ -110,18 +113,17 @@ p {
     }
   </style>
 </head>
+
 <body>
 
-  <!-- Landing Page -->
   <div id="landing-page">
     <div class="landing-container">
       <div class="logo-right">
-        <img src="your-logo.png" alt="Your Logo"/>
+        <img src="your-logo.png" alt="Your Logo" />
       </div>
       <h3 style="text-align: center; text-decoration: underline;">
-        <a href="https://www.patelgtech.com" target="_blank" style="text-decoration: underline;">
-          www.patelgtech.com
-        </a>
+        <a href="https://www.patelgtech.com" target="_blank"
+          style="text-decoration: underline;">www.patelgtech.com</a>
       </h3>
       <form id="startForm">
         <label for="name" style="color: green;">Name:*</label>
@@ -131,13 +133,13 @@ p {
         <button type="submit" style="font-weight: bold;margin-top: 20px;">Click to Start</button>
       </form>
     </div>
-<marquee id="landing-marquee" behavior="scroll" direction="left"
-  style="position: fixed; bottom: 0; left: 0; width: 100%; background: #007bff; color: white; padding: 10px; font-weight: bold; z-index: 9999; margin: 0;">
-  © 2025 PatelGTech. All rights reserved.            © 2025 PatelGTech Llp. All rights reserved.            © 2025 PatelGTech Llp. All rights reserved.            © 2025 PatelGTech Llp. All rights reserved.
-</marquee>
+    <marquee id="landing-marquee" behavior="scroll" direction="left"
+      style="position: fixed; bottom: 0; left: 0; width: 100%; background: #007bff; color: white; padding: 10px; font-weight: bold; z-index: 9999; margin: 0;">
+      © 2025 PatelGTech. All rights reserved. © 2025 PatelGTech Llp. All rights reserved. © 2025 PatelGTech Llp. All
+      rights reserved. © 2025 PatelGTech Llp. All rights reserved.
+    </marquee>
   </div>
 
-  <!-- Test Page -->
   <div id="test-content" style="display: none;">
     <div class="logo-left">
       <img src="your-logo.png" alt="Your Logo" />
@@ -154,9 +156,19 @@ p {
     </form>
   </div>
 
-  <!-- Monaco Editor Loader -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.34.1/min/vs/loader.min.js"></script>
   <script>
+
+    function decodeHtmlEntities(str) {
+      const txt = document.createElement("textarea");
+      txt.innerHTML = str;
+      return txt.value;
+    }
+
+    function encodeHtmlEntities(str) {
+      return str.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
+
     const startForm = document.getElementById('startForm');
     const landingPage = document.getElementById('landing-page');
     const testContent = document.getElementById('test-content');
@@ -164,17 +176,18 @@ p {
     const nameInput = document.getElementById('name');
 
     // Start test
-startForm.addEventListener('submit', function(event) {
-  event.preventDefault();
-  const name = nameInput.value.trim();
-  if (name !== "") {
-    traineeNameInput.value = name;
-    landingPage.style.display = 'none';
-    testContent.style.display = 'block';
-    document.getElementById("landing-marquee").style.display = "none"; // Hides the marquee
-    startTimer(30 * 60); // 30 minutes
-  }
-});
+    startForm.addEventListener('submit', function (event) {
+      event.preventDefault();
+      const name = nameInput.value.trim();
+      if (name !== "") {
+        traineeNameInput.value = name;
+        landingPage.style.display = 'none';
+        testContent.style.display = 'block';
+        document.getElementById("landing-marquee").style.display = "none";
+        startTimer(30 * 60);
+      }
+    });
+
     // Timer logic
     function startTimer(duration) {
       let timer = duration, minutes, seconds;
@@ -185,10 +198,10 @@ startForm.addEventListener('submit', function(event) {
         display.textContent = `⏱ Time Left: ${minutes}:${seconds}`;
 
         if (--timer < 0) {
-  clearInterval(countdown);
-  alert("⏰ Time is up! Submitting your test.");
-  autoSubmitTest();
-}
+          clearInterval(countdown);
+          alert("⏰ Time is up! Submitting your test.");
+          autoSubmitTest();
+        }
       }, 1000);
     }
 
@@ -224,7 +237,7 @@ startForm.addEventListener('submit', function(event) {
       container.appendChild(card);
     });
 
-    require.config({ paths: { vs: "https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.34.1/min/vs" }}); 
+    require.config({ paths: { vs: "https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.34.1/min/vs" } });
     require(["vs/editor/editor.main"], function () {
       for (let i = 1; i <= questions.length; i++) {
         const element = document.getElementById(`editor${i}`);
@@ -237,26 +250,26 @@ startForm.addEventListener('submit', function(event) {
       }
     });
 
-    window.runPreview = function(num) {
+    window.runPreview = function (num) {
       const code = editors[num].getValue();
       document.getElementById(`iframe${num}`).srcdoc = code;
     };
 
     const testForm = document.getElementById("testForm");
-    
-function autoSubmitTest() {
-  let allCode = '';
-  for (let i = 1; i <= questions.length; i++) {
-    const code = editors[i].getValue();
-    allCode += `
-      <div class="question">
-        <h2>Question ${i}</h2>
-        <pre>${code}</pre>
-      </div>
-    `;
-  }
 
-  const finalHtml = `
+    function autoSubmitTest() {
+      let allCode = '';
+      for (let i = 1; i <= questions.length; i++) {
+        const code = editors[i].getValue();
+        const questionText = decodeHtmlEntities(questions[i - 1]);
+        allCode += '<div class="question">';
+        allCode += '<h2>Question ' + i + '</h2>';
+        allCode += '<p>' + encodeHtmlEntities(questionText) + '</p>';
+        allCode += '<pre>' + code + '</pre>';
+        allCode += '</div>';
+      }
+
+      const finalHtml = `
     <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -271,26 +284,26 @@ function autoSubmitTest() {
     </html>
   `;
 
-  const blob = new Blob([finalHtml], { type: 'text/html' });
-  const link = document.createElement('a');
-  link.href = URL.createObjectURL(blob);
-  link.download = `${traineeNameInput.value}_answers.html`;
-  link.click();
-}
+      const blob = new Blob([finalHtml], { type: 'text/html' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = `${traineeNameInput.value}_answers.html`;
+      link.click();
+    }
 
-
-testForm.addEventListener("submit", function(event) {
+    testForm.addEventListener("submit", function (event) {
       event.preventDefault();
       let allCode = '';
       for (let i = 1; i <= questions.length; i++) {
         const code = editors[i].getValue();
+        const questionText = decodeHtmlEntities(questions[i - 1]);
         allCode += `
           <div class="question">
             <h2>Question ${i}</h2>
+            <p>${encodeHtmlEntities(questionText)}</p>
             <pre>${code}</pre>
           </div>
         `;
-        // Reset the editor content to blank after submission
         editors[i].setValue('');
       }
 
@@ -316,18 +329,17 @@ testForm.addEventListener("submit", function(event) {
       link.click();
     });
 
-  // Warn user before closing or refreshing the page
-  window.addEventListener('beforeunload', function (e) {
-    // Only warn if test has started
-    if (testContent.style.display === 'block') {
-      const message = "You have started the test. Are you sure you want to leave? Your progress may be lost.";
-      e.preventDefault();
-      e.returnValue = message; // Most modern browsers will display this message
-      return message; // For older browsers that still require returning the message
-    }
-  });
-
+    // Warn user before closing or refreshing the page
+    window.addEventListener('beforeunload', function (e) {
+      if (testContent.style.display === 'block') {
+        const message = "You have started the test. Are you sure you want to leave? Your progress may be lost.";
+        e.preventDefault();
+        e.returnValue = message;
+        return message;
+      }
+    });
 
   </script>
 </body>
+
 </html>
